@@ -8,6 +8,4 @@
 	<span> | </span>
 	<st:url value="/spitter/register" var="registerUrl" htmlEscape="true"/>
 	<a href="${registerUrl}">Register Page</a>
-	<div>
 	
-		</div>

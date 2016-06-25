@@ -16,28 +16,28 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
-import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.AbstractConfigurableTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages={"ir.itstar.spittr.web"})
-public class WebConfig extends WebMvcConfigurerAdapter{
+public class WebConfig<TemplateResolver> extends WebMvcConfigurerAdapter{
 	
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
 	
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/css/*").addResourceLocations("/css/");
-		
+		registry
+		.addResourceHandler("/css/*")
+		.addResourceLocations("/css/")
+		.addResourceLocations("/images/*")
+		.addResourceLocations("/images/");		
 	} 
 	
 	@Bean
@@ -92,22 +92,20 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 		viewResolver.setTemplateEngine(templateEngine);
 		return viewResolver;
 	}
-	
 	@Bean
-	public TemplateEngine templateEngine(
+	public SpringTemplateEngine templateEngine(
 		ITemplateResolver templateResolver) {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-		templateEngine.setTemplateResolver(templateResolver);
+		templateEngine.setTemplateResolver((ITemplateResolver) templateResolver);
 		return templateEngine;
 	}
-	
 	@Bean
 	public ITemplateResolver templateResolver(ServletContext servletContext) {
-		ITemplateResolver templateResolver =
+		ServletContextTemplateResolver templateResolver =
 		new ServletContextTemplateResolver(servletContext);
-		((UrlBasedViewResolver) templateResolver).setPrefix("/WEB-INF/templates/");
-		((UrlBasedViewResolver) templateResolver).setSuffix(".html");
-		((AbstractConfigurableTemplateResolver) templateResolver).setTemplateMode("HTML5");
+		templateResolver.setPrefix("/WEB-INF/templates/");
+		templateResolver.setSuffix(".html");
+		templateResolver.setTemplateMode("HTML5");
 		return templateResolver;
 	}
 }
