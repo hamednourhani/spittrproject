@@ -15,6 +15,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
+import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages={"ir.itstar.spittr.web"})
@@ -55,5 +58,22 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 		resolver.setExposeContextBeansAsAttributes(true);
 		
 		return resolver;
+	}
+	
+	@Bean
+	@Primary
+	public ViewResolver tileViewResolver(){
+		return new TilesViewResolver();
+	}
+	
+	@Bean
+	public TilesConfigurer tilesConfigurer(){
+		TilesConfigurer tilesConfigurer = new TilesConfigurer();
+		tilesConfigurer.setDefinitions(new String[]{
+				"/WEB-INF/layout/tiles.xml",
+				"/WEB-INF/views/**/tiles.xml"
+		});
+		tilesConfigurer.setCheckRefresh(true);
+		return tilesConfigurer;
 	}
 }

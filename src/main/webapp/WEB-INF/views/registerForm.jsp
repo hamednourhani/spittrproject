@@ -1,15 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=windows-1256"
-    pageEncoding="windows-1256"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
 
-<html>
-<head>
-<title>Spittr</title>
-<link rel="stylesheet" type="text/css"
-href='<c:url value="/css/style.css"/>'>
-</head>
-<body>
 	<h1>Register</h1>
 	<sf:form method="POST" commandName="spitter">
 		<sf:errors path="*" element="div" cssClass="errors"/>
@@ -25,6 +17,4 @@ href='<c:url value="/css/style.css"/>'>
 		<sf:errors path="password" /><br/>
 		<input type="submit" value="Register" />
 	</sf:form>
-
-</body>
-</html>
+ 

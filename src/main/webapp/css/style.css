@@ -1,0 +1,23 @@
+body{
+	margin : 20px	;
+	text-align	: center;
+	padding : 20px;
+}
+span.error {
+color: red;
+}
+div.errors {
+background-color: #ffcccc;
+border: 2px solid red;
+}
+label.error {
+color: red;
+}
+input.error {
+background-color: #ffcccc;
+}
+.footer{
+	padding : 30px 20px;
+	font-ize : 90%;
+	color : #ccc;
+}
