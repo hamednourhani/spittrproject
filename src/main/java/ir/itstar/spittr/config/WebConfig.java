@@ -20,7 +20,6 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.engine.TemplateManager;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.AbstractConfigurableTemplateResolver;
@@ -70,7 +69,6 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 	}
 	
 	@Bean
-	@Primary
 	public ViewResolver tileViewResolver(){
 		return new TilesViewResolver();
 	}
@@ -87,6 +85,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 	}
 	
 	@Bean
+	@Primary
 	public ViewResolver viewResolver(
 		SpringTemplateEngine templateEngine) {
 		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
