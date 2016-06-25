@@ -1,5 +1,7 @@
 package ir.itstar.spittr.config;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,9 +16,16 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.engine.TemplateManager;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.AbstractConfigurableTemplateResolver;
+import org.thymeleaf.templateresolver.ITemplateResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 @Configuration
 @EnableWebMvc
@@ -75,5 +84,31 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 		});
 		tilesConfigurer.setCheckRefresh(true);
 		return tilesConfigurer;
+	}
+	
+	@Bean
+	public ViewResolver viewResolver(
+		SpringTemplateEngine templateEngine) {
+		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+		viewResolver.setTemplateEngine(templateEngine);
+		return viewResolver;
+	}
+	
+	@Bean
+	public TemplateEngine templateEngine(
+		ITemplateResolver templateResolver) {
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		templateEngine.setTemplateResolver(templateResolver);
+		return templateEngine;
+	}
+	
+	@Bean
+	public ITemplateResolver templateResolver(ServletContext servletContext) {
+		ITemplateResolver templateResolver =
+		new ServletContextTemplateResolver(servletContext);
+		((UrlBasedViewResolver) templateResolver).setPrefix("/WEB-INF/templates/");
+		((UrlBasedViewResolver) templateResolver).setSuffix(".html");
+		((AbstractConfigurableTemplateResolver) templateResolver).setTemplateMode("HTML5");
+		return templateResolver;
 	}
 }
