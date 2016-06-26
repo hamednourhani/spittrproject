@@ -58,6 +58,7 @@ public class WebConfig<TemplateResolver> extends WebMvcConfigurerAdapter{
 	
 	
 	@Bean
+	
 	public ViewResolver viewResolver(){
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/views/");
@@ -69,6 +70,7 @@ public class WebConfig<TemplateResolver> extends WebMvcConfigurerAdapter{
 	}
 	
 	@Bean
+	@Primary
 	public ViewResolver tileViewResolver(){
 		return new TilesViewResolver();
 	}
@@ -85,7 +87,6 @@ public class WebConfig<TemplateResolver> extends WebMvcConfigurerAdapter{
 	}
 	
 	@Bean
-	@Primary
 	public ViewResolver viewResolver(
 		SpringTemplateEngine templateEngine) {
 		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
