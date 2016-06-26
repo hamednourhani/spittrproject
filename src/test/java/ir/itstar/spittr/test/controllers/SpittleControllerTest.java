@@ -1,10 +1,13 @@
 package ir.itstar.spittr.test.controllers;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -20,6 +23,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import ir.itstar.spittr.data.Spittle;
 import ir.itstar.spittr.data.SpittleRepository;
+import ir.itstar.spittr.exceptions.SpittleNotFoundException;
+import ir.itstar.spittr.web.advises.AppWideExceptionHandler;
 import ir.itstar.spittr.web.controllers.SpittleController;
 
 
@@ -44,6 +49,7 @@ public class SpittleControllerTest {
       spMockMvc = standaloneSetup(spittleController)
 //				.setSingleView(new InternalResourceView("/WEB-INF/views/spittles.jsp"))
 				.setViewResolvers(viewResolver)
+				.setControllerAdvice(AppWideExceptionHandler.class)
 				.build();
     }
 	
@@ -78,6 +84,22 @@ public class SpittleControllerTest {
 			.andExpect(view().name("spittle"))
 			.andExpect(model().attributeExists("spittle"))
 			.andExpect(model().attribute("spittle", expectedSpittle));
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testNotFoundSpittle() throws Exception {
+		
+		when( spittleRepositoryMock.findOne(0)).thenThrow(SpittleNotFoundException.class);
+			
+		spMockMvc.perform(get("/spittles/0"))
+		.andExpect(status().isNotFound())
+		.andExpect(content().string(containsString("")));
+		
+		
+		
+			
 	}
 	
 	@After

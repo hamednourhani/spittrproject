@@ -61,8 +61,9 @@ public class SpitterControllerTest {
 	           .param("username", "jbauer")
 	           .param("password", "24hours")
 	    		.param("email","info@example.com"))
-	           .andExpect(redirectedUrl("/spitter/jbauer"))
-	           .andExpect(model().attributeHasNoErrors("spitter"));
+	   .andExpect(redirectedUrl("/spitter/jbauer"));
+	    //.andExpect(redirectedUrl("/spitter/jbauer?spitterId=24"))
+//	           .andExpect(model().attributeHasNoErrors("spitter"));
 	    	
 	}
 	

@@ -1,7 +1,5 @@
 package ir.itstar.spittr.config;
 
-import javax.servlet.ServletContext;
-
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,14 +12,8 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ITemplateResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 @Configuration
 @EnableWebMvc
@@ -84,6 +76,20 @@ public class WebConfig<TemplateResolver> extends WebMvcConfigurerAdapter{
 		tilesConfigurer.setCheckRefresh(true);
 		return tilesConfigurer;
 	}
+	
+//	@Bean
+//	public MultipartResolver multipartResolver(){
+//		return new StandardServletMultipartResolver();
+//	}
+//	
+//	@Bean
+//	public MultipartResolver jmMultipartResolver() throws MalformedURLException, IOException{
+//		CommonsMultipartResolver cmr = new CommonsMultipartResolver();
+//		cmr.setMaxInMemorySize(400000);
+//		cmr.setUploadTempDir(new UrlResource("/tmp"));
+//		return cmr;
+//	}
+//	
 	
 //	@Bean
 //	public ViewResolver viewResolver(

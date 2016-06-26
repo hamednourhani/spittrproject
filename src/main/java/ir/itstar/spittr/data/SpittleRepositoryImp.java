@@ -20,6 +20,7 @@ public class SpittleRepositoryImp implements SpittleRepository {
 
 	public Spittle findOne(int i) {
 		// TODO Auto-generated method stub
+		
 		return new Spittle("Spittle No."+i, new Date());
 	}
 

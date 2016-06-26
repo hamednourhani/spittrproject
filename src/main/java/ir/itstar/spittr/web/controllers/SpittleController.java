@@ -36,7 +36,19 @@ public class SpittleController {
 	
 	@RequestMapping(value="/{spittleId}",method=RequestMethod.GET)
 	public String spittle(@PathVariable int spittleId, Model model){
-		model.addAttribute(spittleRepository.findOne(spittleId));
+		Spittle spittle = spittleRepository.findOne(spittleId);
+		if( spittle == null){
+			//throw new SpittleNotFoundException();
+		}
+		model.addAttribute(spittle);
 		return "spittle";
 	}
+	
+//	AppWideExceptionHandler class will do Exception handeling for all 
+//	methods in app that annotated by @RequestMapping by default
+//	
+//	@ExceptionHandler(value = SpittleNotFoundException.class)
+//	public String spittleErrorHandeling(){
+//		return "error/duplicated";
+//	}
 }

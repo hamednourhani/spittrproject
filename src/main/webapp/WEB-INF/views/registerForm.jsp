@@ -15,6 +15,8 @@
 		<sf:errors path="username"/><br/>
 		Password: <sf:password path="password" cssErrorClass="error"/><br/>
 		<sf:errors path="password" /><br/>
+				
+		
 		<input type="submit" value="Register" />
 	</sf:form>
  

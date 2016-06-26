@@ -1,8 +1,6 @@
 package ir.itstar.spittr.config;
 
-import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
-
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -28,7 +26,11 @@ public class SpittrContainerInitialaizer extends AbstractAnnotationConfigDispatc
 	
 	@Override
 	protected void customizeRegistration(Dynamic registration){
-		registration.setMultipartConfig(new MultipartConfigElement("/tmp/spittr/uploads"));
+		
+		//To Handleing MultiPart of a request(file upload) we need a MultipartResolver
+		//Bean to help the dispachurServlet and for Standard 
+		
+		//registration.setMultipartConfig(new MultipartConfigElement("c:/tmp/"));
 		
 	}
 	
