@@ -1,12 +1,10 @@
 package ir.itstar.spittr.config;
 
-import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import ir.itstar.spittr.config.extras.MyFilter;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class SpittrContainerInitialaizer extends AbstractAnnotationConfigDispatcherServletInitializer{
 
@@ -34,10 +32,6 @@ public class SpittrContainerInitialaizer extends AbstractAnnotationConfigDispatc
 		
 	}
 	
-//	@Override
-//	protected Filter[] getServletFilters() {
-//		// TODO Auto-generated method stub
-//		return new Filter[]{(Filter) new MyFilter()};
-//	}
+	
 
 }
