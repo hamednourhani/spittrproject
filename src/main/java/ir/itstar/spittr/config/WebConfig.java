@@ -57,17 +57,16 @@ public class WebConfig<TemplateResolver> extends WebMvcConfigurerAdapter{
 	}
 	
 	
-	@Bean
-	
-	public ViewResolver viewResolver(){
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/views/");
-		resolver.setSuffix(".jsp");
-		resolver.setViewClass(JstlView.class);
-		resolver.setExposeContextBeansAsAttributes(true);
-		
-		return resolver;
-	}
+//	@Bean
+//	public ViewResolver viewResolver(){
+//		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//		resolver.setPrefix("/WEB-INF/views/");
+//		resolver.setSuffix(".jsp");
+//		resolver.setViewClass(JstlView.class);
+//		resolver.setExposeContextBeansAsAttributes(true);
+//		
+//		return resolver;
+//	}
 	
 	@Bean
 	@Primary
@@ -86,27 +85,29 @@ public class WebConfig<TemplateResolver> extends WebMvcConfigurerAdapter{
 		return tilesConfigurer;
 	}
 	
-	@Bean
-	public ViewResolver viewResolver(
-		SpringTemplateEngine templateEngine) {
-		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-		viewResolver.setTemplateEngine(templateEngine);
-		return viewResolver;
-	}
-	@Bean
-	public SpringTemplateEngine templateEngine(
-		ITemplateResolver templateResolver) {
-		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-		templateEngine.setTemplateResolver((ITemplateResolver) templateResolver);
-		return templateEngine;
-	}
-	@Bean
-	public ITemplateResolver templateResolver(ServletContext servletContext) {
-		ServletContextTemplateResolver templateResolver =
-		new ServletContextTemplateResolver(servletContext);
-		templateResolver.setPrefix("/WEB-INF/templates/");
-		templateResolver.setSuffix(".html");
-		templateResolver.setTemplateMode("HTML5");
-		return templateResolver;
-	}
+//	@Bean
+//	public ViewResolver viewResolver(
+//		SpringTemplateEngine templateEngine) {
+//		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+//		viewResolver.setTemplateEngine(templateEngine);
+//		return viewResolver;
+//	}
+//	
+//	@Bean
+//	public SpringTemplateEngine templateEngine(
+//		ITemplateResolver templateResolver) {
+//		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+//		templateEngine.setTemplateResolver((ITemplateResolver) templateResolver);
+//		return templateEngine;
+//	}
+//	
+//	@Bean
+//	public ITemplateResolver templateResolver(ServletContext servletContext) {
+//		ServletContextTemplateResolver templateResolver =
+//		new ServletContextTemplateResolver(servletContext);
+//		templateResolver.setPrefix("/WEB-INF/templates/");
+//		templateResolver.setSuffix(".html");
+//		templateResolver.setTemplateMode("HTML5");
+//		return templateResolver;
+//	}
 }
