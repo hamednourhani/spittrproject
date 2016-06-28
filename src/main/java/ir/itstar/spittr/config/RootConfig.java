@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -113,7 +115,17 @@ public class RootConfig {
 		asfb.setDataSource(dataSource);
 		asfb.setAnnotatedPackages(new String[]{"ir.itstar.spittr.data"});
 		asfb.setAnnotatedClasses(new Class<?>[] {Spitter.class,Spittle.class});
-		
+		Properties prop = new Properties();
+		prop.setProperty("dialect", "org.hibernate.dialect.H2Dialect");
+		return asfb;
+	}
+	
+	//if you not use HibernateTemplate must configur a 
+	//BeanPostProccesor to Translating SQL and other Exceptions
+	//to DAO uncheked Exceptions 
+	@Bean
+	public BeanPostProcessor persistenceTranslation() {
+		return new PersistenceExceptionTranslationPostProcessor();
 	}
 	
 }
