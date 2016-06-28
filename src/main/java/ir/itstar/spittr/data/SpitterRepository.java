@@ -1,5 +1,7 @@
 package ir.itstar.spittr.data;
 
+import java.util.List;
+
 public interface SpitterRepository {
 	
 	public Spitter save(Spitter unsaved);
@@ -10,5 +12,7 @@ public interface SpitterRepository {
 	public void addSpitterbyName(Spitter spitter);
 	
 	public Spitter findOne(Long id);
+	public long count();
+	public List<Spitter> findAll();
 	
 }
