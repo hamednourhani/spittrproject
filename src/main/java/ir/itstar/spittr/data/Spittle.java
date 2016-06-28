@@ -2,9 +2,12 @@ package ir.itstar.spittr.data;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+@Entity
 public class Spittle {
 	private final Long id;
 	private final String message;

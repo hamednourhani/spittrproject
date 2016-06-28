@@ -7,6 +7,7 @@ public interface SpitterRepository {
 	public Spitter findeByUsername(String username);
 	
 	public void addSpitter(Spitter spitter);
+	public void addSpitterbyName(Spitter spitter);
 	
 	public Spitter findOne(Long id);
 	

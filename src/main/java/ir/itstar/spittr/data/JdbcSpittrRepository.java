@@ -2,6 +2,8 @@ package ir.itstar.spittr.data;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
@@ -12,6 +14,9 @@ public class JdbcSpittrRepository implements SpitterRepository {
 
 	private static final String INSERT_SPITTER = null;
 	private static final String SELECT_SPITTER_BY_ID = null;
+	private static final String SQL_INSERT_SPITTER =
+			"insert into spitter (username, password, fullname) " +
+			"values (:username, :password, :fullname)";
 	private JdbcOperations jdbcOperations;
 	
 	public JdbcOperations getJdbcOperations() {
@@ -35,14 +40,6 @@ public class JdbcSpittrRepository implements SpitterRepository {
 	
 	
 	
-	public void addSpitter(Spitter spitter){
-		jdbcOperations.update(INSERT_SPITTER,
-				spitter.getUsername(),
-				spitter.getPassword(),
-				spitter.getEmail());
-				
-	}
-
 	public Spitter findOne(Long id) {
 		
 		// --1--
@@ -78,6 +75,27 @@ public class JdbcSpittrRepository implements SpitterRepository {
 				rs.getString("password"),
 				rs.getString("firstName"),
 				rs.getString("lastName"));
+	}
+	
+	//using JDBCTemplate
+	public void addSpitter(Spitter spitter){
+		jdbcOperations.update(INSERT_SPITTER,
+				spitter.getUsername(),
+				spitter.getPassword(),
+				spitter.getEmail());
+				
+	}
+	
+	//using NamedParameterJdbcTemplate
+	public void addSpitterbyName(Spitter spitter) {
+	
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("username", spitter.getUsername());
+		paramMap.put("password", spitter.getPassword());
+		paramMap.put("email", spitter.getEmail());
+		
+		jdbcOperations.update(SQL_INSERT_SPITTER, paramMap);
 	}
 
 }
