@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<jee:jndi-lookup id="jndiDataSource" jndi-name="/jdbc/SpittrDB" proxy-interface="javax.sql.DataSoucre.class" resource-ref="true"/>
+	
+	<jdbc:embedded-database id="embededdataSource" type="H2">
+		<jdbc:script location="com/habuma/spitter/db/jdbc/schema.sql"/>
+		<jdbc:script location="com/habuma/spitter/db/jdbc/test-data.sql"/>
+	 </jdbc:embedded-database>
+	
+</beans>
